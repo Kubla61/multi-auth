@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Hash;
+use App\Models\Admin;
 
 class AdminController extends Controller
 {
@@ -33,5 +35,22 @@ class AdminController extends Controller
         Auth::guard('admin')->logout();
 
         return redirect()->route('login_from')->with('error', 'Admin Login Successfully');
+    }
+
+
+    public function AdminRegister() {
+        return view('admin.admin_register');
+    }
+
+
+    public function AdminRegisterCreate(Request $request) {
+        Admin::insert([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('login_from')->with('error', 'Admin Login Successfully');
+
     }
 }

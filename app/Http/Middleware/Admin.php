@@ -21,9 +21,6 @@ class Admin
             return redirect()->route('login_from')->with('error', 'Plz Login First');   
         }
 
-
-
-
         return $next($request);
     }
 }
